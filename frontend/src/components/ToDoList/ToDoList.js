@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import "./styles.css";
 import { Button } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
@@ -26,6 +26,17 @@ export const ToDoList = () => {
 
     }
 
+    const deleteCurrentListItem = (index) => {
+        // console.log('object :>> ');
+        // e.preventDefault();
+        // e.preventDefault();
+        listItems.splice(index, 1);
+
+        setListItems([...listItems]);
+    }
+
+
+
     return (
 
 
@@ -36,7 +47,7 @@ export const ToDoList = () => {
                         {listItems.map((element, index) => {
                             return (
 
-                                <Row>
+                                <Row key={index}>
                                     <Col>
                                         <p
                                             key={index}
@@ -46,7 +57,7 @@ export const ToDoList = () => {
                                         </p>
                                     </Col>
                                     <Col>
-                                        <p onClick={deleteFirstListItem} key={index}>
+                                        <p onClick={() => deleteCurrentListItem(index)} key={index}>
                                             x
                                         </p>
                                     </Col>

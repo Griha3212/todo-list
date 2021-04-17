@@ -17,8 +17,6 @@ export const ToDoList = () => {
 
         listItems.shift();
 
-        // const newArray = 
-
         console.log('listItems :>> ', listItems);
 
         setListItems([...listItems])
@@ -27,9 +25,7 @@ export const ToDoList = () => {
     }
 
     const deleteCurrentListItem = (index) => {
-        // console.log('object :>> ');
-        // e.preventDefault();
-        // e.preventDefault();
+
         listItems.splice(index, 1);
 
         setListItems([...listItems]);

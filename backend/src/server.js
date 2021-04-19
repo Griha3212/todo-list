@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-absolute-path */
 /* eslint-disable import/extensions */
 /* eslint-disable max-len */
 /* eslint-disable import/no-cycle */
@@ -9,7 +11,9 @@ import fs from "fs";
 import chalk from "chalk";
 import { Server } from "socket.io";
 import path from "path";
+import mongoose from "mongoose";
 import { app } from "./app.js";
+import { seedUsersData } from "./seeds/seedUsers";
 
 /* eslint-disable no-console */
 
@@ -92,3 +96,27 @@ io.on("connection", (socket) => {
     socket.leave(String(id));
   });
 });
+
+// MongoDB Connection
+if (process.env.NODE_ENV !== "test") {
+  mongoose.connect(
+    "mongodb://admin:admin@localhost:27017",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    },
+    (error) => {
+      if (error) {
+        console.error("Please make sure Mongodb is installed and running!");
+        throw new Error("Please make sure Mongodb is installed and running!");
+      } else {
+        console.error("Success connection to DB");
+      }
+
+      // feed some dummy data in DB.
+      seedUsersData();
+    }
+  );
+}

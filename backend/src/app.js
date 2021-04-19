@@ -9,11 +9,9 @@ import compression from "compression";
 import passport from "passport";
 import errorHandler from "./middlewares/error.middleware.js";
 
-console.log("1 :>> ");
 // Create a new express application instance
 export const app = express();
 
-console.log("2 :>> ");
 // passport and strategies initialization
 app.use(passport.initialize());
 // app.use(localSignInStrategy.initialize());

@@ -7,6 +7,7 @@ import chalk from "chalk";
 import cors from "cors";
 import compression from "compression";
 import passport from "passport";
+
 import errorHandler from "./middlewares/error.middleware.js";
 
 // Create a new express application instance
@@ -58,4 +59,19 @@ app.get("/", (req, res) => {
 //     await seedMockedSpeakers();
 //     console.log(chalk.yellow("Speakers mocking complete"));
 //   }
+// });
+
+// mongoose.connect("mongodb://localhost/", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+//   useFindAndModify: false,
+// });
+
+// const db = mongoose.connection;
+
+// db.on("error", console.error.bind(console, "connection error:"));
+// db.once("open", () => {
+//   // we're connected!
+//   console.log("connected to mongo :>> ");
 // });

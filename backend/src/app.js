@@ -1,41 +1,63 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-console */
+/* eslint-disable import/prefer-default-export */
+import express from "express";
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+import chalk from "chalk";
+import cors from "cors";
+import compression from "compression";
+import passport from "passport";
+import errorHandler from "./middlewares/error.middleware.js";
 
-var app = express();
+console.log("1 :>> ");
+// Create a new express application instance
+export const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+console.log("2 :>> ");
+// passport and strategies initialization
+app.use(passport.initialize());
+// app.use(localSignInStrategy.initialize());
+// app.use(jwtStrategy.initialize());
+// app.use(jwtStrategyIsAdmin.initialize());
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true }));
+app.use(errorHandler);
+app.use(express.static("public"));
+app.use(cors());
+app.use(compression());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use("/api/auth", authRouter);
+// app.use("/api/user", userRouter);
+// app.use("/api/admin", adminRouter);
+// app.use("/api/stats", statsRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// console.log('process.env.JWT_SECRET :>> ', process.env.JWT_SECRET);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+// console.log('process.env.BACKEND_URL :>> ', process.env.BACKEND_URL);
 
-module.exports = app;
+// TO DO create db for staging/prod version without seeding
+// createConnection().then(async () => {
+//   // seed only if dataBase is empty
+
+//   const countOfUsers = await getRepository(Users)
+//     .createQueryBuilder("user")
+//     .getCount();
+
+//   if (countOfUsers === 0) {
+//     console.log(chalk.yellow("Found 0 users, mocking data"));
+
+//     await seedMockedChannels();
+//     console.log(chalk.yellow("Channels mocking complete"));
+//     await seedMockedUsers();
+//     console.log(chalk.yellow("Users mocking complete"));
+//     await seedMockedSessions();
+//     console.log(chalk.yellow("Sessions mocking complete"));
+//     await seedMockedSpeakers();
+//     console.log(chalk.yellow("Speakers mocking complete"));
+//   }
+// });

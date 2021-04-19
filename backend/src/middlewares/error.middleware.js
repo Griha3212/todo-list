@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
-import chalk from 'chalk';
+import chalk from "chalk";
 
 const errorHandler = (err, req, res, next) => {
   if (!err) return next();
@@ -9,6 +9,7 @@ const errorHandler = (err, req, res, next) => {
   }
   let status;
   let error;
+  console.log("error", error);
   if (/ValidationError:/.test(err.message)) {
     status = 400;
     error = err.message;
@@ -20,7 +21,7 @@ const errorHandler = (err, req, res, next) => {
     error = err.message;
   }
   console.log(chalk.white.bgRed.bold(`error: ${error}`));
-  // console.log('error', error);
+  // console.log("error111", error);
   res.status(status).json({ error });
 };
 

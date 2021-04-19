@@ -9,9 +9,9 @@ const router = express.Router();
 const { getUser } = userController;
 
 router.get(
-  "/get_user:userId",
-  passport.authenticate("jwt", { session: false }),
-  changeActiveSpeakerInChannel
+  "/get_user/:userId",
+  //   passport.authenticate("jwt", { session: false }),
+  getUser
 );
 
 export { router };

@@ -112,7 +112,7 @@ if (process.env.NODE_ENV !== "test") {
         console.error("Please make sure Mongodb is installed and running!");
         throw new Error("Please make sure Mongodb is installed and running!");
       } else {
-        console.error("Success connection to DB");
+        console.log("Success connection to DB");
       }
 
       // feed some dummy data in DB.

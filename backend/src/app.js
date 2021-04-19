@@ -7,6 +7,7 @@ import chalk from "chalk";
 import cors from "cors";
 import compression from "compression";
 import passport from "passport";
+import { router as userRouter } from "./routes/user.routes";
 
 import errorHandler from "./middlewares/error.middleware.js";
 
@@ -21,19 +22,21 @@ app.use(passport.initialize());
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
-app.use(errorHandler);
+
 app.use(express.static("public"));
 app.use(cors());
 app.use(compression());
 
 // app.use("/api/auth", authRouter);
-// app.use("/api/user", userRouter);
+app.use("/api/user", userRouter);
 // app.use("/api/admin", adminRouter);
 // app.use("/api/stats", statsRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+app.use(errorHandler);
 
 // console.log('process.env.JWT_SECRET :>> ', process.env.JWT_SECRET);
 

@@ -11,7 +11,11 @@ export const getUser = async (req, res, next) => {
 
     if (!foundUser) throw new Error("Wrong id!");
 
-    res.status(200).send(foundUser);
+    setTimeout(() => {
+      res.status(200).send(foundUser);
+    }, 2000);
+
+    // setTimeout(, 7000);
   } catch (error) {
     next(error);
   }

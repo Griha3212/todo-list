@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-import { Button, Container, Row, Col } from "reactstrap";
+import { Button, Container, Row, Col, Spinner } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../store/actions/userAction";
 
@@ -28,9 +29,13 @@ export const ToDoList = () => {
   const dispatch = useDispatch();
   const usersList = useSelector((state) => state.usersList);
   const { loading, error, users } = usersList;
-  useEffect(() => {
+  // useEffect(() => {
+
+  // }, [dispatch]);
+
+  const loadUserData = () => {
     dispatch(getUsers());
-  }, [dispatch]);
+  };
 
   return (
     <>
@@ -60,6 +65,19 @@ export const ToDoList = () => {
           <Col>
             {" "}
             <Button onClick={deleteFirstListItem}>Delete first element</Button>
+          </Col>
+          <Col>
+            {" "}
+            <Button onClick={loadUserData}>
+              {loading ? (
+                <Spinner
+                  style={{ width: "1rem", height: "1rem" }}
+                  type="grow"
+                  color="light"
+                />
+              ) : null}
+              {loading ? "Loading" : `Load user's data`}
+            </Button>
           </Col>
 
           <Col>

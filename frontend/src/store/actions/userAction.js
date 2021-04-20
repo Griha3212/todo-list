@@ -1,16 +1,25 @@
 import axios from "axios";
-import { GET_USERS, USERS_ERROR } from "../types";
+import {
+  GET_USERS_STARTED,
+  GET_USERS_SUCCESS,
+  GET_USERS_ERROR,
+} from "../types";
 
 export const getUsers = () => async (dispatch) => {
   try {
-    const res = await axios.get(`http://jsonplaceholder.typicode.com/users`);
     dispatch({
-      type: GET_USERS,
+      type: GET_USERS_STARTED,
+    });
+    const res = await axios.get(
+      `http://localhost:3005/api/user/get_user/607d500412cf7a1614eb7f16`
+    );
+    dispatch({
+      type: GET_USERS_SUCCESS,
       payload: res.data,
     });
   } catch (error) {
     dispatch({
-      type: USERS_ERROR,
+      type: GET_USERS_ERROR,
       payload: error,
     });
   }

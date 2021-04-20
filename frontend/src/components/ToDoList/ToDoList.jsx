@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { Button, Container, Row, Col } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../store/actions/userAction";
 
 export const ToDoList = () => {
   const [listItems, setListItems] = useState(["1", "2"]);
@@ -22,6 +24,13 @@ export const ToDoList = () => {
 
     setListItems([...listItems]);
   };
+
+  const dispatch = useDispatch();
+  const usersList = useSelector((state) => state.usersList);
+  const { loading, error, users } = usersList;
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
 
   return (
     <>

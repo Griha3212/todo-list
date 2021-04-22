@@ -4,8 +4,6 @@
 /* eslint-disable no-alert */
 import React from "react";
 import { useFormik } from "formik";
-import { Header } from "../../components/Header/Header";
-import { ToDoList } from "../../components/ToDoList/ToDoList";
 import "./styles.css";
 
 const SignupForm = () => {

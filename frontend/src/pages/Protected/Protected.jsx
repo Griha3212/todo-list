@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  Route,
-  Router,
-  Switch,
-  BrowserRouter,
-  Redirect,
-} from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 import { loadUserDataFromLocalStorage } from "../../utils/localStorage";
-import { LoginPage } from "../LoginPage/LoginPage";
 
 export const Protected = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

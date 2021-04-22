@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Route, Router, Switch, BrowserRouter } from "react-router-dom";
+import {
+  Route,
+  Router,
+  Switch,
+  BrowserRouter,
+  Redirect,
+} from "react-router-dom";
 import { loadUserDataFromLocalStorage } from "../../utils/localStorage";
+import { LoginPage } from "../LoginPage/LoginPage";
 
 export const Protected = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -8,9 +15,13 @@ export const Protected = () => {
   useEffect(() => {
     const { token } = loadUserDataFromLocalStorage();
     console.log("token :>> ", token);
+
+    if (token) {
+      setIsAuthenticated(true);
+    }
   }, []);
 
-  if (!isAuthenticated) return null;
+  if (!isAuthenticated) return <Redirect to="/login" />;
 
   return (
     <Switch>

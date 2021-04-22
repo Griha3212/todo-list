@@ -5,7 +5,7 @@ import {
   GET_USERS_ERROR,
 } from "../types";
 
-export const getUsers = () => async (dispatch) => {
+export const getUser = () => async (dispatch) => {
   try {
     dispatch({
       type: GET_USERS_STARTED,
@@ -24,3 +24,23 @@ export const getUsers = () => async (dispatch) => {
     });
   }
 };
+
+// export const loginUser = (data) => async (dispatch) => {
+//   try {
+//     dispatch({
+//       type: GET_USERS_STARTED,
+//     });
+//     const res = await axios.post(`http://localhost:3005/api/user/login`, {
+//       ...data,
+//     });
+//     dispatch({
+//       type: GET_USERS_SUCCESS,
+//       payload: res.data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: GET_USERS_ERROR,
+//       payload: error,
+//     });
+//   }
+// };

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { Button, Container, Row, Col, Spinner } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../store/actions/userAction";
+import { getUser } from "../../store/actions/userAction";
 
 export const ToDoList = () => {
   const [listItems, setListItems] = useState(["1", "2"]);
@@ -34,7 +34,7 @@ export const ToDoList = () => {
   // }, [dispatch]);
 
   const loadUserData = () => {
-    dispatch(getUsers());
+    dispatch(getUser());
   };
 
   return (

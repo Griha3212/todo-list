@@ -6,12 +6,18 @@ import * as userController from "../controllers/user.controller";
 
 const router = express.Router();
 
-const { getUser } = userController;
+const { getUser, loginUser } = userController;
 
 router.get(
   "/get_user/:userId",
   //   passport.authenticate("jwt", { session: false }),
   getUser
+);
+
+router.post(
+  "/login",
+  passport.authenticate("localSignIn", { session: false }),
+  loginUser
 );
 
 export { router };

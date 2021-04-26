@@ -9,6 +9,11 @@ import compression from "compression";
 import passport from "passport";
 import { router as userRouter } from "./routes/user.routes";
 // import { passportStrategy } from "./config/passportStrategy";
+import {
+  // jwtStrategy,
+  // jwtStrategyIsAdmin,
+  localSignInStrategy,
+} from "./config/passportStrategy";
 
 import errorHandler from "./middlewares/error.middleware.js";
 
@@ -17,8 +22,7 @@ export const app = express();
 
 // passport and strategies initialization
 app.use(passport.initialize());
-// passportStrategy.initialize();
-// app.use(localSignInStrategy.initialize());
+app.use(localSignInStrategy.initialize());
 // app.use(jwtStrategy.initialize());
 // app.use(jwtStrategyIsAdmin.initialize());
 
@@ -39,7 +43,7 @@ app.get("/", (req, res) => {
 
 app.use(errorHandler);
 
-// console.log('process.env.JWT_SECRET :>> ', process.env.JWT_SECRET);
+// console.log("process.env.JWT_SECRET :>> ", process.env.JWT_SECRET);
 
 // console.log('process.env.BACKEND_URL :>> ', process.env.BACKEND_URL);
 

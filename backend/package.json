@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node ./src/server.js"
+    "start": "env-cmd -f .env.local nodemon --experimental-modules --es-module-specifier-resolution=node ./src/server.js"
   },
   "type": "module",
   "dependencies": {

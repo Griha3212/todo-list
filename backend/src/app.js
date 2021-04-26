@@ -8,7 +8,7 @@ import cors from "cors";
 import compression from "compression";
 import passport from "passport";
 import { router as userRouter } from "./routes/user.routes";
-import { passportStrategy } from "./config/passportStrategy";
+// import { passportStrategy } from "./config/passportStrategy";
 
 import errorHandler from "./middlewares/error.middleware.js";
 
@@ -17,7 +17,7 @@ export const app = express();
 
 // passport and strategies initialization
 app.use(passport.initialize());
-passportStrategy.initialize();
+// passportStrategy.initialize();
 // app.use(localSignInStrategy.initialize());
 // app.use(jwtStrategy.initialize());
 // app.use(jwtStrategyIsAdmin.initialize());

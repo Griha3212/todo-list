@@ -25,20 +25,37 @@ export const localSignInStrategy = passport.use(
         //   where: { loginCode },
         // });
 
-        const passwordsMatch = bcryptjs.compareSync(password, user.password);
+        // Load hash from your password DB.
+        const passwordsMatch = bcryptjs.compare(
+          password,
+          foundUser.password,
+          (err, res) => {
+            // res === true
 
-        if (!user) {
-          return done(null, {
-            status: false,
-            message: allErrors.wrongLoginCode,
-          });
-        }
+            if (passwordsMatch) {
+              return done(null, foundUser);
+            }
+            throw Error("Incorrect email or passwrod");
+          }
+        );
 
-        if (loginCode === user?.loginCode) {
-          return done(null, user);
-        }
+        // const passwordsMatch = bcryptjs.compareSync(
+        //   password,
+        //   foundUser.password
+        // );
+
+        // if (!user) {
+        //   return done(null, {
+        //     status: false,
+        //     message: allErrors.wrongLoginCode,
+        //   });
+        // }
+
+        // if (loginCode === user?.loginCode) {
+        //   return done(null, user);
+        // }
       } catch (error) {
-        return done(error);
+        done(error);
       }
     }
   )
@@ -55,10 +72,15 @@ export const jwtStrategy = passport.use(
         if (Date.now() > jwtPayload.expires) {
           return done(null, false, { message: "jwt expired" });
         }
-        const user = await getRepository(Users).findOne(
-          jwtPayload.userId || jwtPayload.id
-        );
-        if (user) {
+
+        const foundUser = await Users.findOne({
+          email: jwtPayload.email.toLowerCase(),
+        });
+
+        // const user = await getRepository(Users).findOne(
+        //   jwtPayload.userId || jwtPayload.id
+        // );
+        if (foundUser) {
           return done(null, jwtPayload);
         }
         return done(null, false, { message: "jwt invalid" });

@@ -6,7 +6,7 @@ import * as userController from "../controllers/user.controller";
 
 const router = express.Router();
 
-const { getUser, loginUser } = userController;
+const { getUser, loginUser, registerUser } = userController;
 
 router.get(
   "/get_user/:userId",
@@ -18,6 +18,12 @@ router.post(
   "/login",
   passport.authenticate("localSignIn", { session: false }),
   loginUser
+);
+
+router.post(
+  "/register",
+  // passport.authenticate("localSignIn", { session: false }),
+  registerUser
 );
 
 export { router };
